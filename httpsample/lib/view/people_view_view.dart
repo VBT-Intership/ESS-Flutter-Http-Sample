@@ -8,7 +8,33 @@ class PeopleViewView extends PeopleViewModel {
       appBar: AppBar(
         title: Text("HTTP DENEME"),
       ),
-      body: FloatingActionButton(onPressed: () => {getPeople()}),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            flex: 5,
+            child: ListView.builder(
+              itemCount: users.length,
+              itemBuilder: (context, index) {
+                print(index);
+                return Card(
+                  elevation: 2.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Row(
+                    children: [
+                      Image.network(
+                        users[index]["avatar"],
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          )
+        ],
+      ),
     );
   }
 }
