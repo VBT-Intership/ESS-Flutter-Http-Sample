@@ -9,6 +9,8 @@ abstract class PeopleViewModel extends State<PeopleView> {
   List users = [];
   final String BASE_URL = "https://reqres.in/";
 
+  bool isLoading = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -17,6 +19,7 @@ abstract class PeopleViewModel extends State<PeopleView> {
   }
 
   Future<void> getPeople() async {
+    isLoadingChange();
     final response = await http.get(BASE_URL + "api/users?page=2");
     print(response.statusCode);
     switch (response.statusCode) {
@@ -24,9 +27,17 @@ abstract class PeopleViewModel extends State<PeopleView> {
         final jsonBody = jsonDecode(response.body);
         if (jsonBody["data"] is List) {
           users = jsonBody["data"];
+          print(users[0]["avatar"]);
         }
         break;
       default:
     }
+    isLoadingChange();
+  }
+
+  void isLoadingChange() {
+    setState(() {
+      isLoading = !isLoading;
+    });
   }
 }
