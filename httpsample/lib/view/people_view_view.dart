@@ -15,30 +15,72 @@ class PeopleViewView extends PeopleViewModel {
             visible: isLoading,
             child: CircularProgressIndicator(),
           ),
-          Expanded(
-            flex: 5,
-            child: ListView.builder(
-              itemCount: users.length,
-              itemBuilder: (context, index) {
-                print(index);
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    elevation: 2.0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    child: Row(
-                      children: [
-                        buildPersonAvatarImage(index),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
+          buildPeopleList(),
         ],
+      ),
+    );
+  }
+
+  Expanded buildPeopleList() {
+    return Expanded(
+      flex: 5,
+      child: ListView.builder(
+        itemCount: users.length,
+        itemBuilder: (context, index) {
+          return buildPeopleCard(index, context);
+        },
+      ),
+    );
+  }
+
+  Padding buildPeopleCard(int index, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        elevation: 2.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        child: Row(
+          children: [
+            buildPersonAvatarImage(index),
+            buildPeopleInformation(index, context)
+          ],
+        ),
+      ),
+    );
+  }
+
+  Column buildPeopleInformation(int index, BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        buildPeopleNameSurname(index, context),
+        buildPeopleEmail(index, context),
+      ],
+    );
+  }
+
+  Padding buildPeopleEmail(int index, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        users[index]["email"],
+        style: Theme.of(context).primaryTextTheme.bodyText2.copyWith(
+              color: Colors.black,
+            ),
+      ),
+    );
+  }
+
+  Padding buildPeopleNameSurname(int index, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        users[index]["first_name"] + " " + users[index]["last_name"],
+        style: Theme.of(context).primaryTextTheme.headline6.copyWith(
+              color: Colors.black,
+            ),
       ),
     );
   }
