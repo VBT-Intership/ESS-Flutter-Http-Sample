@@ -11,6 +11,10 @@ class PeopleViewView extends PeopleViewModel {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
+          Visibility(
+            visible: isLoading,
+            child: CircularProgressIndicator(),
+          ),
           Expanded(
             flex: 5,
             child: ListView.builder(
@@ -32,7 +36,7 @@ class PeopleViewView extends PeopleViewModel {
                 );
               },
             ),
-          )
+          ),
         ],
       ),
     );
