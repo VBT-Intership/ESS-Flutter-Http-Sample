@@ -1,4 +1,4 @@
-class people_model {
+class PeopleModel {
   int page;
   int perPage;
   int total;
@@ -6,7 +6,7 @@ class people_model {
   List<Data> data;
   Ad ad;
 
-  people_model(
+  PeopleModel(
       {this.page,
       this.perPage,
       this.total,
@@ -14,7 +14,7 @@ class people_model {
       this.data,
       this.ad});
 
-  people_model.fromJson(Map<String, dynamic> json) {
+  PeopleModel.fromJson(Map<String, dynamic> json) {
     page = json['page'];
     perPage = json['per_page'];
     total = json['total'];
