@@ -21,23 +21,34 @@ class PeopleViewView extends PeopleViewModel {
               itemCount: users.length,
               itemBuilder: (context, index) {
                 print(index);
-                return Card(
-                  elevation: 2.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Row(
-                    children: [
-                      Image.network(
-                        users[index]["avatar"],
-                      ),
-                    ],
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                    elevation: 2.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: Row(
+                      children: [
+                        buildPersonAvatarImage(index),
+                      ],
+                    ),
                   ),
                 );
               },
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Padding buildPersonAvatarImage(int index) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: CircleAvatar(
+        radius: 50,
+        backgroundImage: NetworkImage(users[index]["avatar"]),
       ),
     );
   }
